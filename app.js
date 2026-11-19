@@ -7,7 +7,8 @@ const results = $("results");
 
 const RDAP_BOOTSTRAP = "https://data.iana.org/rdap/dns.json";
 const DNS_API = "https://dns.google/resolve";
-const CT_API = "https://crt.sh/";
+// const CT_API = "https://crt.sh/";
+const SSL_PROXY_URL = "https://domain-ssl-proxy.botpramote.workers.dev/";
 
 function cleanDomain(value) {
   let domain = value.trim().toLowerCase();
@@ -99,7 +100,8 @@ async function renderDNS(domain) {
 async function renderSSL(domain) {
   const container=$("ssl-info");container.replaceChildren();
   try {
-    const data=await getJSON(`${CT_API}?q=${encodeURIComponent("%."+domain)}&output=json`);
+    // const data=await getJSON(`${CT_API}?q=${encodeURIComponent("%."+domain)}&output=json`);
+    const data = await getJSON(`${SSL_PROXY_URL}?domain=${encodeURIComponent(domain)}`);
     const unique=new Map();
     (Array.isArray(data)?data:[]).forEach(cert=>{
       const key=cert.id || `${cert.not_before}-${cert.not_after}-${cert.common_name}`;

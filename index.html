@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Check public domain registration, DNS and certificate information.">
+  <title>Domain Info Checker</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand-mark">D</div>
+      <div>
+        <p class="eyebrow">DOMAIN TOOLS</p>
+        <h1>Domain Info Checker</h1>
+      </div>
+      <span class="local-tag">No database</span>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">PUBLIC DOMAIN INFORMATION</p>
+      <h2>किसी भी डोमेन की जानकारी जाँचें</h2>
+      <p class="intro">डोमेन डालें और उपलब्ध Registration, Expiry, Registrar, DNS तथा SSL certificate की जानकारी देखें।</p>
+      <form id="lookup-form" class="search-form">
+        <label class="sr-only" for="domain-input">Domain name</label>
+        <input id="domain-input" type="text" placeholder="example.com" autocomplete="url" spellcheck="false" required>
+        <button id="search-button" type="submit"><span>जाँचें</span><span aria-hidden="true">→</span></button>
+      </form>
+      <p class="hint">उदाहरण: example.com या example.in — https:// लिखना जरूरी नहीं है।</p>
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="results" class="results hidden" aria-live="polite">
+      <div class="result-heading">
+        <div>
+          <p class="eyebrow">LOOKUP RESULT</p>
+          <h2 id="result-domain">—</h2>
+          <p id="checked-at" class="muted"></p>
+        </div>
+        <span id="overall-status" class="status-pill">Checked</span>
+      </div>
+
+      <div class="summary-grid">
+        <article class="summary-card expiry-card">
+          <span class="card-label">Expiration date</span>
+          <strong id="expiry-date">—</strong>
+          <span id="days-left" class="card-note">RDAP data</span>
+        </article>
+        <article class="summary-card">
+          <span class="card-label">Creation date</span>
+          <strong id="creation-date">—</strong>
+          <span class="card-note">Registration start</span>
+        </article>
+        <article class="summary-card">
+          <span class="card-label">Registrar</span>
+          <strong id="registrar" class="smaller-value">—</strong>
+          <span class="card-note">Registration provider</span>
+        </article>
+      </div>
+
+      <div class="section-grid">
+        <article class="panel">
+          <div class="panel-title"><h3>Registration details</h3><span class="source">RDAP</span></div>
+          <dl id="registration-details" class="details-list"></dl>
+        </article>
+        <article class="panel">
+          <div class="panel-title"><h3>Domain status</h3><span class="source">RDAP</span></div>
+          <div id="domain-statuses" class="chips"><span class="muted">No status returned</span></div>
+          <div class="panel-title sub-title"><h3>Name servers</h3></div>
+          <ul id="nameservers" class="plain-list"><li class="muted">Not available</li></ul>
+        </article>
+      </div>
+
+      <article class="panel">
+        <div class="panel-title"><h3>DNS records</h3><span class="source">Google Public DNS</span></div>
+        <p class="panel-description">ये रिकॉर्ड सार्वजनिक DNS resolver से प्राप्त किए गए हैं।</p>
+        <div id="dns-records" class="dns-grid"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-title"><h3>SSL certificate information</h3><span class="source">Certificate Transparency</span></div>
+        <p class="panel-description">Certificate Transparency में मिले हाल के certificates। यह वेबसाइट के वर्तमान SSL configuration की गारंटी नहीं है।</p>
+        <div id="ssl-info" class="ssl-list"><span class="muted">जाँच बाकी है</span></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-title"><h3>Data availability & notes</h3></div>
+        <ul id="notes" class="notes-list"></ul>
+      </article>
+      <div class="footer-note">यह टूल केवल सार्वजनिक तकनीकी जानकारी दिखाता है। यह registrar account में renewal या payment status नहीं देख सकता।</div>
+    </section>
+
+    <footer>Domain Info Checker <span>•</span> Browser-only test version</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
